@@ -1,5 +1,5 @@
 #define MAX_ATTACHED_INDEX	10
-#define MAX_ATTACHED_BONE   19
+#define MAX_ATTACHED_BON	19
 
 new bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	g_pAttachedModel		[MAX_PLAYERS][MAX_ATTACHED_INDEX],
