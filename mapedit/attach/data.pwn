@@ -2,14 +2,14 @@
 #define MAX_ATTACHED_BONE   19
 
 new bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
-	g_pAttachedModel			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
-    g_pAttachedBone				[MAX_PLAYERS][MAX_ATTACHED_INDEX],
+	g_pAttachedModel		[MAX_PLAYERS][MAX_ATTACHED_INDEX],
+	g_pAttachedBone			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	Float: g_pAttachedOffset	[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
 	Float: g_pAttachedRot		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
-	Float: g_pAttachedScale     [MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
-	g_pAttachedColor            [MAX_PLAYERS][MAX_ATTACHED_INDEX][2],
+	Float: g_pAttachedScal		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
+	g_pAttachedColor		[MAX_PLAYERS][MAX_ATTACHED_INDEX][2],
 
-	g_pEditAttachIndex          [MAX_PLAYERS char],
+	g_pEditAttachInde		[MAX_PLAYERS char],
 
 	g_AttachIndexDialog,
 	g_AttachEditDialog,
@@ -26,12 +26,12 @@ new bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 
 	g_AttachModelBrowser,
 	g_pAttachModelChoice		[MAX_PLAYERS] = {-1, ...},
-	g_pAttachModelPage			[MAX_PLAYERS],
-    g_pAttachModelSearch		[MAX_PLAYERS][MAX_MBROWSER_SEARCH],
-    g_pAttachModelResult		[MAX_PLAYERS][MAX_MBROWSER_PAGESIZE],
+	g_pAttachModelPage		[MAX_PLAYERS],
+	 g_pAttachModelSearch		[MAX_PLAYERS][MAX_MBROWSER_SEARCH],
+	g_pAttachModelResult		[MAX_PLAYERS][MAX_MBROWSER_PAGESIZE],
 
 	g_AttachColorBrowser		[2],
-	g_pAttachColorPage			[MAX_PLAYERS][2];
+	g_pAttachColorPage		[MAX_PLAYERS][2];
 
 #include "mapedit/attach/macros.pwn"
 #include "mapedit/attach/hooks.pwn"
