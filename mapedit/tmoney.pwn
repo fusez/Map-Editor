@@ -6,7 +6,7 @@ new bool: g_IsPlayerTuning[MAX_PLAYERS char];
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    g_IsPlayerTuning{playerid} = false;
+	g_IsPlayerTuning{playerid} = false;
 
 	#if defined tm_OnPlayerDisconnect
 		tm_OnPlayerDisconnect(playerid, reason);
