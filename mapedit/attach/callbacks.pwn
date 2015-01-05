@@ -41,19 +41,19 @@ public OnPlayerDisconnect(playerid, reason)
 	for(new index; index < MAX_ATTACHED_INDEX; index ++)
 		RemovePlayerAttachedObject(playerid, index);
 
-	g_pEditAttachIndex			{playerid} = 0;
+	g_pEditAttachIndex		{playerid} = 0;
 
 	g_pAttachModelChoice		[playerid] = -1;
 
-	g_pAttachModelPage			[playerid] = 0;
+	g_pAttachModelPage		[playerid] = 0;
 
-    g_pAttachModelSearch		[playerid] = "";
+	g_pAttachModelSearch		[playerid] = "";
 
 	for(new listitem; listitem < MAX_MBROWSER_PAGESIZE; listitem ++)
 	    g_pAttachModelResult	[playerid][listitem] = -1;
 
 	for(new i; i < 2; i ++)
-		g_pAttachColorPage		[playerid][i] = 0;
+		g_pAttachColorPage	[playerid][i] = 0;
 
 	#if defined a_OnPlayerDisconnect
 		a_OnPlayerDisconnect(playerid, reason);
@@ -78,15 +78,15 @@ public OnPlayerSpawn(playerid)
 		if(!IsPlayerAttachedObjectSlotUsed(playerid, index))
 			continue;
 
-		new modelid = GetPlayerAttachedObjectModel(playerid, index),
+		ne	modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
-		    Float: o	[3],
-		    Float: r	[3],
-		    Float: s	[3],
-			c			[2];
+		    	Float: o	[3],
+		    	Float: r	[3],
+		    	Float: s	[3],
+			c		[2];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
-		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
+		GetPlayerAttachedObjectRot	( playerid, index, r[0], r[1], r[2] );
 		GetPlayerAttachedObjectScale	( playerid, index, s[0], s[1], s[2] );
 		GetPlayerAttachedObjectColor    ( playerid, index, c[0], c[1] );
 
@@ -208,7 +208,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response)
 		{
 			ShowPlayerAttachDialog(playerid, g_AttachIndexDialog);
-		    return 1;
+			return 1;
 		}
 
 		switch(listitem)
@@ -269,7 +269,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			attach_argb	[2];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
-		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
+		GetPlayerAttachedObjectRot	( playerid, index, r[0], r[1], r[2] );
 		GetPlayerAttachedObjectScale	( playerid, index, s[0], s[1], s[2] );
 		GetPlayerAttachedObjectColor    ( playerid, index, attach_argb[0], attach_argb[1] );
 
@@ -319,18 +319,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 
-		new index = g_pEditAttachIndex{playerid},
-		    modelid = GetPlayerAttachedObjectModel(playerid, index),
+		new	index = g_pEditAttachIndex{playerid},
+			modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
 			Float: input_float = floatstr(inputtext),
 			Float: o	[3],
-		    Float: r	[3],
-		    Float: s	[3],
+			Float: r	[3],
+			Float: s	[3],
 			attach_argb	[2],
 			action_str	[11];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
-		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
+		GetPlayerAttachedObjectRot	( playerid, index, r[0], r[1], r[2] );
 		GetPlayerAttachedObjectScale	( playerid, index, s[0], s[1], s[2] );
 		GetPlayerAttachedObjectColor    ( playerid, index, attach_argb[0], attach_argb[1] );
 
@@ -412,13 +412,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		);
 
 		SendClientMessage(playerid, RGBA_GREEN,
-		    sprintf("You have set the %s of your attachment \"%s\" to \"%.4f\".",
+			sprintf("You have set the %s of your attachment \"%s\" to \"%.4f\".",
 				action_str,	GetObjectModelName(modelid), input_float
 			)
 		);
 
 		ShowPlayerAttachDialog(playerid, g_AttachEditDialog);
-
 		return 1;
 	}
 
@@ -448,9 +447,9 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			{
 				HideMBrowser(playerid);
 
-				new index = g_pEditAttachIndex{playerid},
+				new	index = g_pEditAttachIndex{playerid},
 					is_attached = IsPlayerAttachedObjectSlotUsed(playerid, index),
-				    dialogid = (is_attached) ? (g_AttachEditDialog) : (g_AttachIndexDialog);
+				    	dialogid = (is_attached) ? (g_AttachEditDialog) : (g_AttachIndexDialog);
 
 				ShowPlayerAttachDialog(playerid, dialogid);
 			}
@@ -502,13 +501,13 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 					new old_modelid = GetPlayerAttachedObjectModel(playerid, index);
 
 					boneid = GetPlayerAttachedObjectBone	( playerid, index );
-					GetPlayerAttachedObjectOffset			( playerid, index, o[0], o[1], o[2] );
-					GetPlayerAttachedObjectRot				( playerid, index, r[0], r[1], r[2] );
-					GetPlayerAttachedObjectScale			( playerid, index, s[0], s[1], s[2] );
-					GetPlayerAttachedObjectColor    		( playerid, index, attach_argb[0], attach_argb[1] );
+					GetPlayerAttachedObjectOffset		( playerid, index, o[0], o[1], o[2] );
+					GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
+					GetPlayerAttachedObjectScale		( playerid, index, s[0], s[1], s[2] );
+					GetPlayerAttachedObjectColor    	( playerid, index, attach_argb[0], attach_argb[1] );
 
 					SendClientMessage(playerid, RGBA_GREEN,
-					    sprintf("You have changed the model of your attachment \"%s\" to \"%s\".",
+						sprintf("You have changed the model of your attachment \"%s\" to \"%s\".",
 							GetObjectModelName(old_modelid), GetObjectModelName(modelid)
 						)
 					);
@@ -543,7 +542,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_LISTITEM:
 			{
-				new pageitem = listitem + (g_pAttachModelPage[playerid] * MAX_MBROWSER_PAGESIZE),
+				ne	pageitem = listitem + (g_pAttachModelPage[playerid] * MAX_MBROWSER_PAGESIZE),
 					is_searching = strlen(g_pAttachModelSearch[playerid]) > 0,
 					model_index  = (is_searching) ? (g_pAttachModelResult[playerid][listitem]) : (pageitem),
 					modelid = g_ObjectModels[model_index][e_ObjectModelID];
@@ -613,7 +612,7 @@ public OnMBrowserShown(playerid, browserid)
 					}
 
 					if(++ matches >= max_pageitem)
-			    	    break;
+						break;
 				}
 			}
 		}
