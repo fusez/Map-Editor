@@ -170,7 +170,7 @@ stock ShowCBrowser(playerid, browserid, page)
 stock HideCBrowser(playerid)
 {
 	if(g_cbID[playerid] == INVALID_CBROWSER_ID)
-	    return 0;
+		return 0;
 
 	g_cbID[playerid] = INVALID_CBROWSER_ID;
 
@@ -198,7 +198,7 @@ stock CreateCBrowser(&browserid, const title[])
 {
 	static browsers;
 	if(browsers == MAX_CBROWSER_ID)
-	    return 0;
+		return 0;
 
 	browserid = browsers ++;
 	format ( g_cbTitleString[browserid], MAX_CBROWSER_TITLE, title );

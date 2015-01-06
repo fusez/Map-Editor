@@ -47,10 +47,10 @@ public OnPlayerDisconnect(playerid, reason)
 
 	g_pAttachModelPage			[playerid] = 0;
 
-    g_pAttachModelSearch		[playerid] = "";
+	g_pAttachModelSearch		[playerid] = "";
 
 	for(new listitem; listitem < MAX_MBROWSER_PAGESIZE; listitem ++)
-	    g_pAttachModelResult	[playerid][listitem] = -1;
+		g_pAttachModelResult	[playerid][listitem] = -1;
 
 	for(new i; i < 2; i ++)
 		g_pAttachColorPage		[playerid][i] = 0;
@@ -80,15 +80,15 @@ public OnPlayerSpawn(playerid)
 
 		new	modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
-		    Float: o	[3],
-		    Float: r	[3],
-		    Float: s	[3],
-			c			[2];
+			Float:o	[3],
+			Float:r	[3],
+			Float:s	[3],
+			c		[2];
 
-		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
-		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
-		GetPlayerAttachedObjectScale	( playerid, index, s[0], s[1], s[2] );
-		GetPlayerAttachedObjectColor    ( playerid, index, c[0], c[1] );
+		GetPlayerAttachedObjectOffset	(playerid, index, o[0], o[1], o[2]);
+		GetPlayerAttachedObjectRot		(playerid, index, r[0], r[1], r[2]);
+		GetPlayerAttachedObjectScale	(playerid, index, s[0], s[1], s[2]);
+		GetPlayerAttachedObjectColor	(playerid, index, c[0], c[1]);
 
 		SetPlayerAttachedObject(
 			playerid,
@@ -112,7 +112,7 @@ public OnPlayerSpawn(playerid)
 	#if defined a_OnPlayerSpawn
 		return a_OnPlayerSpawn(playerid, reason);
 	#else
-	    return 1;
+		return 1;
 	#endif
 }
 #if defined _ALS_OnPlayerSpawn
@@ -132,22 +132,22 @@ public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Fl
 	new	soundid = (response) ? (1083) : (1084);
 	PlayerPlaySound(playerid, soundid, 0.0, 0.0, 0.0);
 
-    if(response)
-    {
+	if(response)
+	{
 		SendClientMessage(playerid, RGBA_GREEN,
-		    sprintf("You have successfully moved your attachment \"%s\".", GetObjectModelName(modelid))
+			sprintf("You have successfully moved your attachment \"%s\".", GetObjectModelName(modelid))
 		);
-    }
-    else
-    {
+	}
+	else
+	{
 		GetPlayerAttachedObjectOffset	( playerid, index, fOffsetX, fOffsetY, fOffsetZ );
 		GetPlayerAttachedObjectRot		( playerid, index, fRotX, fRotY, fRotZ );
 		GetPlayerAttachedObjectScale	( playerid, index, fScaleX, fScaleY, fScaleZ );
 
 		SendClientMessage(playerid, RGBA_RED,
-		    sprintf("You have cancelled moving your attachment \"%s\".", GetObjectModelName(modelid))
+			sprintf("You have cancelled moving your attachment \"%s\".", GetObjectModelName(modelid))
 		);
-    }
+	}
 
 	new	attach_argb[2];
 	GetPlayerAttachedObjectColor(playerid, index, attach_argb[0], attach_argb[1]);
@@ -194,7 +194,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == g_AttachIndexDialog)
 	{
 		if(!response)
-		    return 1;
+			return 1;
 
 		g_pEditAttachIndex{playerid} = listitem;
 		if(IsPlayerAttachedObjectSlotUsed(playerid, listitem))
@@ -208,12 +208,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response)
 		{
 			ShowPlayerAttachDialog(playerid, g_AttachIndexDialog);
-		    return 1;
+			return 1;
 		}
 
 		switch(listitem)
 		{
-		    case 0: // Remove
+			case 0: // Remove
 			{
 				RemovePlayerAttachedObject(playerid, g_pEditAttachIndex{playerid});
 				ShowPlayerAttachDialog(playerid, g_AttachIndexDialog);
@@ -261,17 +261,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 
 		new	index = g_pEditAttachIndex{playerid},
-		    modelid = GetPlayerAttachedObjectModel(playerid, index),
+			modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = listitem + 1,
-		    Float: o	[3],
-		    Float: r	[3],
-		    Float: s	[3],
+			Float:o		[3],
+			Float:r		[3],
+			Float:s		[3],
 			attach_argb	[2];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
 		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
 		GetPlayerAttachedObjectScale	( playerid, index, s[0], s[1], s[2] );
-		GetPlayerAttachedObjectColor    ( playerid, index, attach_argb[0], attach_argb[1] );
+		GetPlayerAttachedObjectColor	( playerid, index, attach_argb[0], attach_argb[1] );
 
 		SetPlayerAttachedObject(
 			playerid,
@@ -292,7 +292,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		);
 
 		SendClientMessage(playerid, RGBA_GREEN,
-		    sprintf("You have set your attachment \"%s\" to the bone \"%s\".",
+			sprintf("You have set your attachment \"%s\" to the bone \"%s\".",
 				GetObjectModelName(modelid), GetBoneName(boneid)
 			)
 		);
@@ -320,19 +320,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 
 		new	index = g_pEditAttachIndex{playerid},
-		    modelid = GetPlayerAttachedObjectModel(playerid, index),
+			modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
-			Float: input_float = floatstr(inputtext),
-			Float: o	[3],
-		    Float: r	[3],
-		    Float: s	[3],
+			Float:input_float = floatstr(inputtext),
+			Float:o		[3],
+			Float:r		[3],
+			Float:s		[3],
 			attach_argb	[2],
 			action_str	[11];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
 		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
 		GetPlayerAttachedObjectScale	( playerid, index, s[0], s[1], s[2] );
-		GetPlayerAttachedObjectColor    ( playerid, index, attach_argb[0], attach_argb[1] );
+		GetPlayerAttachedObjectColor	( playerid, index, attach_argb[0], attach_argb[1] );
 
 		if(dialogid == g_AttachXDialog)
 		{
@@ -390,7 +390,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			ShowPlayerAttachDialog(playerid, dialogid);
 
-		    return 1;
+			return 1;
 		}
 
 		SetPlayerAttachedObject(
@@ -412,7 +412,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		);
 
 		SendClientMessage(playerid, RGBA_GREEN,
-		    sprintf("You have set the %s of your attachment \"%s\" to \"%.4f\".",
+			sprintf("You have set the %s of your attachment \"%s\" to \"%.4f\".",
 				action_str,	GetObjectModelName(modelid), input_float
 			)
 		);
@@ -450,7 +450,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 
 				new	index = g_pEditAttachIndex{playerid},
 					is_attached = IsPlayerAttachedObjectSlotUsed(playerid, index),
-				    dialogid = (is_attached) ? (g_AttachEditDialog) : (g_AttachIndexDialog);
+					dialogid = (is_attached) ? (g_AttachEditDialog) : (g_AttachIndexDialog);
 
 				ShowPlayerAttachDialog(playerid, dialogid);
 			}
@@ -464,7 +464,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			{
 				if(g_pAttachModelPage[playerid] > 0)
 				{
-				    g_pAttachModelPage[playerid] --;
+					g_pAttachModelPage[playerid] --;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -473,7 +473,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				new	min_pageitem = (g_pAttachModelPage[playerid] + 1) * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < g_MaxObjectModels)
 				{
-				    g_pAttachModelPage[playerid] ++;
+					g_pAttachModelPage[playerid] ++;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -482,7 +482,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				new	min_pageitem = page * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < g_MaxObjectModels)
 				{
-				    g_pAttachModelPage[playerid] = page;
+					g_pAttachModelPage[playerid] = page;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -492,9 +492,9 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 					modelid = g_ObjectModels[model_index][e_ObjectModelID],
 					index = g_pEditAttachIndex{playerid},
 					boneid = 1,
-					Float: o	[3] = {0.0, ...},
-					Float: r	[3] = {0.0, ...},
-					Float: s	[3] = {1.0, ...},
+					Float:o		[3] = {0.0, ...},
+					Float:r		[3] = {0.0, ...},
+					Float:s		[3] = {1.0, ...},
 					attach_argb	[2] = {0xFFFFFFFF, ...};
 
 				if(IsPlayerAttachedObjectSlotUsed(playerid, index))
@@ -505,10 +505,10 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 					GetPlayerAttachedObjectOffset			( playerid, index, o[0], o[1], o[2] );
 					GetPlayerAttachedObjectRot				( playerid, index, r[0], r[1], r[2] );
 					GetPlayerAttachedObjectScale			( playerid, index, s[0], s[1], s[2] );
-					GetPlayerAttachedObjectColor    		( playerid, index, attach_argb[0], attach_argb[1] );
+					GetPlayerAttachedObjectColor			( playerid, index, attach_argb[0], attach_argb[1] );
 
 					SendClientMessage(playerid, RGBA_GREEN,
-					    sprintf("You have changed the model of your attachment \"%s\" to \"%s\".",
+						sprintf("You have changed the model of your attachment \"%s\" to \"%s\".",
 							GetObjectModelName(old_modelid), GetObjectModelName(modelid)
 						)
 					);
@@ -516,7 +516,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				else
 				{
 					SendClientMessage(playerid, RGBA_GREEN,
-					    sprintf("You have created the attachment \"%s\".", GetObjectModelName(modelid))
+						sprintf("You have created the attachment \"%s\".", GetObjectModelName(modelid))
 					);
 				}
 
@@ -552,7 +552,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				SetMBrowserModel(playerid, modelid);
 			}
 		}
-	    return 1;
+		return 1;
 	}
 
 	#if defined a_OnMBrowserResponse
@@ -599,7 +599,7 @@ public OnMBrowserShown(playerid, browserid)
 			for(new model_index, matches; model_index < g_MaxObjectModels; model_index ++)
 			{
 				if(
-				    (search_value != 0 && search_value == g_ObjectModels[model_index][e_ObjectModelID]) ||
+					(search_value != 0 && search_value == g_ObjectModels[model_index][e_ObjectModelID]) ||
 					strfind(g_ObjectModels[model_index][e_ObjectModelName], packed_search, true) != -1
 				){
 					if(matches >= min_pageitem && matches < max_pageitem)
@@ -613,7 +613,7 @@ public OnMBrowserShown(playerid, browserid)
 					}
 
 					if(++ matches >= max_pageitem)
-			    	    break;
+						break;
 				}
 			}
 		}
@@ -643,7 +643,7 @@ public OnMBrowserShown(playerid, browserid)
 			new modelid = g_ObjectModels[model_index][e_ObjectModelID];
 			SetMBrowserModel(playerid, modelid);
 		}
-	    return 1;
+		return 1;
 	}
 
 	#if defined a_OnMBrowserShown
@@ -693,23 +693,23 @@ public OnCBrowserResponse(playerid, browserid, response, color)
 				case CBROWSER_RESPONSE_COLOR:
 				{
 					new page = g_pAttachColorPage[playerid][i],
-					    pageitem = color + (page * MAX_CBROWSER_PAGESIZE),
+						pageitem = color + (page * MAX_CBROWSER_PAGESIZE),
 						color_rgba = g_VehicleColors[pageitem],
 						color_argb = RGBAtoARGB(color_rgba),
 
 						attach_index = g_pEditAttachIndex{playerid},
 						modelid = GetPlayerAttachedObjectModel(playerid, attach_index),
 						boneid = GetPlayerAttachedObjectBone(playerid, attach_index),
-						Float: o	[3],
-						Float: r	[3],
-						Float: s	[3],
+						Float:o		[3],
+						Float:r		[3],
+						Float:s		[3],
 						attach_argb	[2];
 
 					GetPlayerAttachedObjectOffset	( playerid, attach_index, o[0], o[1], o[2] );
 					GetPlayerAttachedObjectRot		( playerid, attach_index, r[0], r[1], r[2] );
 					GetPlayerAttachedObjectScale	( playerid, attach_index, s[0], s[1], s[2] );
-					GetPlayerAttachedObjectColor    ( playerid, attach_index, attach_argb[0], attach_argb[1] );
-                    attach_argb[i] = color_argb;
+					GetPlayerAttachedObjectColor	( playerid, attach_index, attach_argb[0], attach_argb[1] );
+					attach_argb[i] = color_argb;
 
 					SetPlayerAttachedObject(
 						playerid,
@@ -730,7 +730,7 @@ public OnCBrowserResponse(playerid, browserid, response, color)
 					);
 				}
 			}
-		    return 1;
+			return 1;
 		}
 	}
 
@@ -763,11 +763,11 @@ public OnCBrowserShown(playerid, browserid, page)
 				new pageitem = listitem + (page * MAX_CBROWSER_PAGESIZE);
 				if(pageitem < g_MaxVehicleColors)
 				{
-				    new color_rgba = g_VehicleColors[pageitem];
-				    SetCBrowserColor(playerid, listitem, color_rgba);
+					new color_rgba = g_VehicleColors[pageitem];
+					SetCBrowserColor(playerid, listitem, color_rgba);
 				}
 				else
-				    HideCBrowserColor(playerid, listitem);
+					HideCBrowserColor(playerid, listitem);
 			}
 			return 1;
 		}

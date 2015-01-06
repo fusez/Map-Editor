@@ -5,7 +5,7 @@ public OnFilterScriptInit()
 	for(new playerid; playerid < MAX_PLAYERS; playerid ++)
 	{
 		if(IsPlayerConnected(playerid))
-		    CreateCBrowserTextdraws(playerid);
+			CreateCBrowserTextdraws(playerid);
 	}
 
 	#if defined cb_OnFilterScriptInit
@@ -50,7 +50,7 @@ public OnFilterScriptExit()
 
 public OnPlayerConnect(playerid)
 {
-    CreateCBrowserTextdraws(playerid);
+	CreateCBrowserTextdraws(playerid);
 
 	#if defined cb_OnPlayerConnect
 		cb_OnPlayerConnect(playerid);
@@ -70,7 +70,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    DestroyCBrowserTextdraws(playerid);
+	DestroyCBrowserTextdraws(playerid);
 
 	#if defined cb_OnPlayerDisconnect
 		cb_OnPlayerDisconnect(playerid, reason);
@@ -100,13 +100,13 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	{
 		OnCBrowserResponse(playerid, g_cbID[playerid], CBROWSER_RESPONSE_PAGE_BACK, 0);
 		PlayerPlaySound(playerid, 1084, 0.0, 0.0, 0.0);
-	    return 1;
+		return 1;
 	}
 	if(playertextid == g_cbPageTD[playerid][2])
 	{
 		OnCBrowserResponse(playerid, g_cbID[playerid], CBROWSER_RESPONSE_PAGE_NEXT, 0);
 		PlayerPlaySound(playerid, 1083, 0.0, 0.0, 0.0);
-	    return 1;
+		return 1;
 	}
 	for(new index; index < 25; index ++)
 	{
