@@ -78,7 +78,7 @@ public OnPlayerSpawn(playerid)
 		if(!IsPlayerAttachedObjectSlotUsed(playerid, index))
 			continue;
 
-		new modelid = GetPlayerAttachedObjectModel(playerid, index),
+		new	modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
 		    Float: o	[3],
 		    Float: r	[3],
@@ -129,7 +129,7 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
-	new soundid = (response) ? (1083) : (1084);
+	new	soundid = (response) ? (1083) : (1084);
 	PlayerPlaySound(playerid, soundid, 0.0, 0.0, 0.0);
 
     if(response)
@@ -149,7 +149,7 @@ public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Fl
 		);
     }
 
-	new attach_argb[2];
+	new	attach_argb[2];
 	GetPlayerAttachedObjectColor(playerid, index, attach_argb[0], attach_argb[1]);
 
 	SetPlayerAttachedObject(
@@ -260,7 +260,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 
-		new index = g_pEditAttachIndex{playerid},
+		new	index = g_pEditAttachIndex{playerid},
 		    modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = listitem + 1,
 		    Float: o	[3],
@@ -319,7 +319,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 
-		new index = g_pEditAttachIndex{playerid},
+		new	index = g_pEditAttachIndex{playerid},
 		    modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
 			Float: input_float = floatstr(inputtext),
@@ -448,7 +448,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			{
 				HideMBrowser(playerid);
 
-				new index = g_pEditAttachIndex{playerid},
+				new	index = g_pEditAttachIndex{playerid},
 					is_attached = IsPlayerAttachedObjectSlotUsed(playerid, index),
 				    dialogid = (is_attached) ? (g_AttachEditDialog) : (g_AttachIndexDialog);
 
@@ -470,7 +470,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_PAGE_NEXT:
 			{
-				new min_pageitem = (g_pAttachModelPage[playerid] + 1) * MAX_MBROWSER_PAGESIZE;
+				new	min_pageitem = (g_pAttachModelPage[playerid] + 1) * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < g_MaxObjectModels)
 				{
 				    g_pAttachModelPage[playerid] ++;
@@ -479,7 +479,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_PAGE_SET:
 			{
-				new min_pageitem = page * MAX_MBROWSER_PAGESIZE;
+				new	min_pageitem = page * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < g_MaxObjectModels)
 				{
 				    g_pAttachModelPage[playerid] = page;
@@ -499,7 +499,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 
 				if(IsPlayerAttachedObjectSlotUsed(playerid, index))
 				{
-					new old_modelid = GetPlayerAttachedObjectModel(playerid, index);
+					new	old_modelid = GetPlayerAttachedObjectModel(playerid, index);
 
 					boneid = GetPlayerAttachedObjectBone	( playerid, index );
 					GetPlayerAttachedObjectOffset			( playerid, index, o[0], o[1], o[2] );
@@ -543,7 +543,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_LISTITEM:
 			{
-				new pageitem = listitem + (g_pAttachModelPage[playerid] * MAX_MBROWSER_PAGESIZE),
+				new	pageitem = listitem + (g_pAttachModelPage[playerid] * MAX_MBROWSER_PAGESIZE),
 					is_searching = strlen(g_pAttachModelSearch[playerid]) > 0,
 					model_index  = (is_searching) ? (g_pAttachModelResult[playerid][listitem]) : (pageitem),
 					modelid = g_ObjectModels[model_index][e_ObjectModelID];

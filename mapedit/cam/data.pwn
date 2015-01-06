@@ -1,4 +1,4 @@
-new bool: g_IsPlayerCamActivated	[MAX_PLAYERS char],
+new	bool: g_IsPlayerCamActivated	[MAX_PLAYERS char],
 	g_PlayerCamDirection			[MAX_PLAYERS char],
 	g_PlayerCamObject				[MAX_PLAYERS],
 	Float: g_PlayerCamAcceleration	[MAX_PLAYERS];

@@ -5,11 +5,11 @@ stock a_RemovePlayerAttachedObject(playerid, index)
 	new success = RemovePlayerAttachedObject(playerid, index);
 	if(success)
 	{
-        g_pIsAttached           [playerid][index] = false;
+		g_pIsAttached			[playerid][index] = false;
 
 		g_pAttachedModel		[playerid][index] = 0;
 
-        g_pAttachedBone         [playerid][index] = 0;
+		g_pAttachedBone			[playerid][index] = 0;
 
 		for(new i; i < 3; i ++)
 			g_pAttachedOffset	[playerid][index][i] = 0.0;
@@ -37,7 +37,7 @@ stock a_RemovePlayerAttachedObject(playerid, index)
 		}
 
 		if(dialogid == g_AttachIndexDialog)
-		    ShowPlayerAttachDialog(playerid, dialogid);
+			ShowPlayerAttachDialog(playerid, dialogid);
 		else if(
 			dialogid == g_AttachEditDialog ||
 			dialogid == g_AttachBoneDialog ||
@@ -51,7 +51,7 @@ stock a_RemovePlayerAttachedObject(playerid, index)
 			dialogid == g_AttachSYDialog ||
 			dialogid == g_AttachSZDialog
 		){
-		    HidePlayerDialog(playerid);
+			HidePlayerDialog(playerid);
 		}
 	}
 	return success;
@@ -67,7 +67,7 @@ stock a_RemovePlayerAttachedObject(playerid, index)
 
 stock a_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ, materialcolor1, materialcolor2)
 {
-	new success = SetPlayerAttachedObject(
+	new	success = SetPlayerAttachedObject(
 			playerid,
 			index,
 			modelid,
@@ -87,11 +87,11 @@ stock a_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX, 
 
 	if(success)
 	{
-		g_pIsAttached       [playerid][index] = true;
+		g_pIsAttached		[playerid][index] = true;
 
 		g_pAttachedModel	[playerid][index] = modelid;
 
-        g_pAttachedBone		[playerid][index] = bone;
+		g_pAttachedBone		[playerid][index] = bone;
 
 		g_pAttachedOffset	[playerid][index][0] = fOffsetX;
 		g_pAttachedOffset	[playerid][index][1] = fOffsetY;
@@ -110,7 +110,7 @@ stock a_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX, 
 
 		new dialogid = GetPlayerDialog(playerid);
 		if(dialogid == g_AttachIndexDialog)
-		    ShowPlayerAttachDialog(playerid, dialogid);
+			ShowPlayerAttachDialog(playerid, dialogid);
 	}
 	return success;
 }
@@ -126,7 +126,7 @@ stock a_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX, 
 stock a_IsPlayerAttachedObject(playerid, index)
 {
 	if(index < 0 || index >= MAX_ATTACHED_INDEX)
-	    return 0;
+		return 0;
 
 	return (g_pIsAttached[playerid][index]) ? 1 : 0;
 }

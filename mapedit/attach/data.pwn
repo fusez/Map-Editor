@@ -1,7 +1,7 @@
-#define MAX_ATTACHED_INDEX	10
-#define MAX_ATTACHED_BONE	19
+#define	MAX_ATTACHED_INDEX	10
+#define	MAX_ATTACHED_BONE	19
 
-new bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
+new	bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	g_pAttachedModel			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	g_pAttachedBone				[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	Float: g_pAttachedOffset	[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
@@ -33,7 +33,7 @@ new bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	g_AttachColorBrowser		[2],
 	g_pAttachColorPage			[MAX_PLAYERS][2];
 
-#include "mapedit/attach/macros.pwn"
-#include "mapedit/attach/hooks.pwn"
-#include "mapedit/attach/functions.pwn"
-#include "mapedit/attach/callbacks.pwn"
+#include	"mapedit/attach/macros.pwn"
+#include	"mapedit/attach/hooks.pwn"
+#include	"mapedit/attach/functions.pwn"
+#include	"mapedit/attach/callbacks.pwn"

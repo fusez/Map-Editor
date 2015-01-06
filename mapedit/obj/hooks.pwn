@@ -215,20 +215,34 @@ stock o_SetObjectMaterialText(objectid, text[], materialindex = 0, materialsize 
 
 stock o_AttachObjectToObject(objectid, attachtoid, Float:OffsetX, Float:OffsetY, Float:OffsetZ, Float:RotX, Float:RotY, Float:RotZ, SyncRotation = 1)
 {
-	new success = IsValidObject(attachtoid) && AttachObjectToObject(objectid, attachtoid, OffsetX, OffsetY, OffsetZ, RotX, RotY, RotZ, SyncRotation);
-	if(success)
-	{
-        g_ObjectAttachToObject	[objectid - 1] = attachtoid;
-        g_ObjectAttachToVehicle [objectid - 1] = INVALID_VEHICLE_ID;
+	if(!IsValidObject(objectid))
+		return 0;
 
-		g_ObjectAttachOffset	[objectid - 1][0] = OffsetX;
-		g_ObjectAttachOffset	[objectid - 1][1] = OffsetY;
-		g_ObjectAttachOffset	[objectid - 1][2] = OffsetZ;
-		g_ObjectAttachOffset	[objectid - 1][3] = RotX;
-		g_ObjectAttachOffset	[objectid - 1][4] = RotY;
-		g_ObjectAttachOffset	[objectid - 1][5] = RotZ;
+	if(!IsValidObject(attachtoid))
+		return 0;
+
+	if(objectid == attachtoid)
+		return 0;
+
+	AttachObjectToObject(objectid, attachtoid, OffsetX, OffsetY, OffsetZ, RotX, RotY, RotZ, SyncRotation);
+
+	for(new loop_objectid = 1; loop_objectid <= MAX_OBJECTS; loop_objectid  ++)
+	{
+		if(GetObjectAttachedToObject(loop_objectid) == objectid)
+		    UnAttachObject(loop_objectid);
 	}
-	return success;
+
+    g_ObjectAttachToObject	[objectid - 1] = attachtoid;
+	g_ObjectAttachToVehicle [objectid - 1] = INVALID_VEHICLE_ID;
+
+	g_ObjectAttachOffset	[objectid - 1][0] = OffsetX;
+	g_ObjectAttachOffset	[objectid - 1][1] = OffsetY;
+	g_ObjectAttachOffset	[objectid - 1][2] = OffsetZ;
+	g_ObjectAttachOffset	[objectid - 1][3] = RotX;
+	g_ObjectAttachOffset	[objectid - 1][4] = RotY;
+	g_ObjectAttachOffset	[objectid - 1][5] = RotZ;
+
+	return 1;
 }
 #if defined _ALS_AttachObjectToObject
 	#undef AttachObjectToObject
@@ -241,19 +255,30 @@ stock o_AttachObjectToObject(objectid, attachtoid, Float:OffsetX, Float:OffsetY,
 
 stock o_AttachObjectToVehicle(objectid, vehicleid, Float:OffsetX, Float:OffsetY, Float:OffsetZ, Float:RotX, Float:RotY, Float:RotZ)
 {
-	AttachObjectToVehicle(objectid, vehicleid, OffsetX, OffsetY, OffsetZ, RotX, RotY, RotZ);
-	if(IsValidObject(objectid) && IsValidVehicle(vehicleid))
-	{
-		g_ObjectAttachToObject	[objectid - 1] = INVALID_OBJECT_ID;
-	    g_ObjectAttachToVehicle	[objectid - 1] = vehicleid;
+	if(!IsValidObject(objectid))
+		return 0;
 
-		g_ObjectAttachOffset	[objectid - 1][0] = OffsetX;
-		g_ObjectAttachOffset	[objectid - 1][1] = OffsetY;
-		g_ObjectAttachOffset	[objectid - 1][2] = OffsetZ;
-		g_ObjectAttachOffset	[objectid - 1][3] = RotX;
-		g_ObjectAttachOffset	[objectid - 1][4] = RotY;
-		g_ObjectAttachOffset	[objectid - 1][5] = RotZ;
+	if(!IsValidVehicle(vehicleid))
+	    return 0;
+
+	AttachObjectToVehicle(objectid, vehicleid, OffsetX, OffsetY, OffsetZ, RotX, RotY, RotZ);
+
+	for(new loop_objectid = 1; loop_objectid <= MAX_OBJECTS; loop_objectid  ++)
+	{
+		if(GetObjectAttachedToObject(loop_objectid) == objectid)
+		    UnAttachObject(loop_objectid);
 	}
+
+	g_ObjectAttachToObject	[objectid - 1] = INVALID_OBJECT_ID;
+    g_ObjectAttachToVehicle	[objectid - 1] = vehicleid;
+
+	g_ObjectAttachOffset	[objectid - 1][0] = OffsetX;
+	g_ObjectAttachOffset	[objectid - 1][1] = OffsetY;
+	g_ObjectAttachOffset	[objectid - 1][2] = OffsetZ;
+	g_ObjectAttachOffset	[objectid - 1][3] = RotX;
+	g_ObjectAttachOffset	[objectid - 1][4] = RotY;
+	g_ObjectAttachOffset	[objectid - 1][5] = RotZ;
+	return 1;
 }
 #if defined _ALS_AttachObjectToVehicle
 	#undef AttachObjectToVehicle

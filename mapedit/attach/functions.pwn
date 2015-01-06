@@ -54,8 +54,8 @@ stock ShowPlayerAttachDialog(playerid, dialogid)
 		{
 			if(IsPlayerAttachedObjectSlotUsed(playerid, index))
 			{
-				new modelid = GetPlayerAttachedObjectModel(playerid, index),
-				    boneid = GetPlayerAttachedObjectBone(playerid, index);
+				new	modelid = GetPlayerAttachedObjectModel(playerid, index),
+					boneid = GetPlayerAttachedObjectBone(playerid, index);
 
 				strcat(info,
 					sprintf("%s attached to %s\n", GetObjectModelName(modelid), GetBoneName(boneid))
@@ -79,14 +79,14 @@ stock ShowPlayerAttachDialog(playerid, dialogid)
 	}
 	else if(dialogid == g_AttachEditDialog)
 	{
-		new index = g_pEditAttachIndex{playerid},
+		new	index = g_pEditAttachIndex{playerid},
 			modelid = GetPlayerAttachedObjectModel(playerid, index),
-		    boneid = GetPlayerAttachedObjectBone(playerid, index),
+			boneid = GetPlayerAttachedObjectBone(playerid, index),
 			Float:o		[3],
 			Float:r		[3],
 			Float:s		[3],
 			attach_argb	[2],
-		    info		[500];
+			info		[500];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
 		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );
@@ -150,12 +150,12 @@ stock ShowPlayerAttachDialog(playerid, dialogid)
 		dialogid == g_AttachSYDialog ||
 		dialogid == g_AttachSZDialog
 	){
-		new index = g_pEditAttachIndex{playerid},
+		new	index = g_pEditAttachIndex{playerid},
 			Float:o	[3],
 			Float:r	[3],
 			Float:s	[3],
 			caption	[27],
-		    info	[22];
+			info	[22];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
 		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );

@@ -5,7 +5,7 @@ public OnFilterScriptExit()
 	for(new playerid; playerid < MAX_PLAYERS; playerid ++)
 	{
 		if(IsPlayerConnected(playerid) && g_IsPlayerCamActivated{playerid})
-		    TogglePlayerFreeCam(playerid, false);
+			TogglePlayerFreeCam(playerid, false);
 	}
 
 	#if defined fc_OnFilterScriptExit
@@ -53,7 +53,7 @@ public OnPlayerUpdate(playerid)
 		g_IsPlayerCamActivated{playerid} &&
 		GetTickCount() - previous_tick[playerid] > 100
 	){
-		new keys,
+		new	keys,
 			ud,
 			lr,
 			direction;
@@ -63,7 +63,7 @@ public OnPlayerUpdate(playerid)
 
 		if(direction)
 		{
-			new Float:pos[3],
+			new	Float:pos[3],
 				Float:vector[3],
 				Float:x,
 				Float:y,
@@ -71,19 +71,19 @@ public OnPlayerUpdate(playerid)
 				Float:speed;
 
 			GetPlayerCameraPos(playerid, pos[0], pos[1], pos[2]);
-		    GetPlayerCameraFrontVector(playerid, vector[0], vector[1], vector[2]);
+			GetPlayerCameraFrontVector(playerid, vector[0], vector[1], vector[2]);
 			GetPlayerNextCamPos(direction, pos, vector, x, y, z);
 
 			g_PlayerCamAcceleration[playerid] += 0.05;
 			if(g_PlayerCamAcceleration[playerid] > 1.0)
-			    g_PlayerCamAcceleration[playerid] = 1.0;
+				g_PlayerCamAcceleration[playerid] = 1.0;
 
 			if( (keys & KEY_JUMP) == KEY_JUMP )
 				speed = 200.0 * g_PlayerCamAcceleration[playerid];
 			else if( (keys & KEY_WALK) == KEY_WALK )
-	    		speed = 10.0 * g_PlayerCamAcceleration[playerid];
+				speed = 10.0 * g_PlayerCamAcceleration[playerid];
 			else
-			    speed = 50.0 * g_PlayerCamAcceleration[playerid];
+				speed = 50.0 * g_PlayerCamAcceleration[playerid];
 
 			MovePlayerObject(playerid, g_PlayerCamObject[playerid], x, y, z, speed, 0.0, 0.0, 0.0);
 		}
@@ -99,7 +99,7 @@ public OnPlayerUpdate(playerid)
 	#if defined fc_OnPlayerUpdate
 		return fc_OnPlayerUpdate(playerid);
 	#else
-	    return 1;
+		return 1;
 	#endif
 }
 #if defined _ALS_OnPlayerUpdate
@@ -120,7 +120,7 @@ public OnToolbarResponse(playerid, response)
 	{
 		new bool:toggle = (g_IsPlayerCamActivated{playerid}) ? (false) : (true);
 		if(TogglePlayerFreeCam(playerid, toggle))
-		    CancelSelectTextDraw(playerid);
+			CancelSelectTextDraw(playerid);
 		return 1;
 	}
 

@@ -1,4 +1,4 @@
-#define TUNING_MONEY 10000
+#define	TUNING_MONEY 10000
 
 new bool: g_IsPlayerTuning[MAX_PLAYERS char];
 
@@ -6,7 +6,7 @@ new bool: g_IsPlayerTuning[MAX_PLAYERS char];
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    g_IsPlayerTuning{playerid} = false;
+	g_IsPlayerTuning{playerid} = false;
 
 	#if defined tm_OnPlayerDisconnect
 		tm_OnPlayerDisconnect(playerid, reason);
@@ -26,16 +26,16 @@ public OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerUpdate(playerid)
 {
-    if(g_IsPlayerTuning{playerid} && GetPlayerMoney(playerid) != TUNING_MONEY)
-    {
+	if(g_IsPlayerTuning{playerid} && GetPlayerMoney(playerid) != TUNING_MONEY)
+	{
 		ResetPlayerMoney(playerid);
 		GivePlayerMoney(playerid, TUNING_MONEY);
-    }
+	}
 
 	#if defined tm_OnPlayerUpdate
 		return tm_OnPlayerUpdate(playerid);
 	#else
-	    return 1;
+		return 1;
 	#endif
 }
 #if defined _ALS_OnPlayerUpdate

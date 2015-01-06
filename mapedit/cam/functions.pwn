@@ -1,17 +1,17 @@
 TogglePlayerFreeCam(playerid, bool:toggle)
 {
 	if(toggle == g_IsPlayerCamActivated{playerid})
-	    return 0;
+		return 0;
 
 	if(toggle)
 	{
 		switch(GetPlayerState(playerid))
 		{
 			case PLAYER_STATE_NONE, PLAYER_STATE_WASTED, PLAYER_STATE_SPECTATING:
-			    return 0;
+				return 0;
 			case PLAYER_STATE_DRIVER, PLAYER_STATE_PASSENGER:
 			{
-				new Float:x,
+				new	Float:x,
 					Float:y,
 					Float:z;
 
@@ -20,7 +20,7 @@ TogglePlayerFreeCam(playerid, bool:toggle)
 			}
 		}
 
-		new Float:x,
+		new	Float:x,
 			Float:y,
 			Float:z;
 
@@ -36,14 +36,14 @@ TogglePlayerFreeCam(playerid, bool:toggle)
 	}
 	else
 	{
-		new Float:x,
-		    Float:y,
-		    Float:z;
+		new	Float:x,
+			Float:y,
+			Float:z;
 
 		GetPlayerObjectPos(playerid, g_PlayerCamObject[playerid], x, y, z);
 
 		DestroyPlayerObject(playerid, g_PlayerCamObject[playerid]);
-        g_PlayerCamObject[playerid] = INVALID_OBJECT_ID;
+		g_PlayerCamObject[playerid] = INVALID_OBJECT_ID;
 
 		g_IsPlayerCamActivated{playerid} = false;
 		TogglePlayerSpectating(playerid, false);
@@ -56,29 +56,29 @@ TogglePlayerFreeCam(playerid, bool:toggle)
 
 GetPlayerNextCamDirection(ud, lr)
 {
-	new direction;
+	new	direction;
 	if(ud < 0)
 	{
 		if(lr > 0)
 			direction = CAM_MODE_FORWARD_RIGHT;
 		else if(lr < 0)
-		    direction = CAM_MODE_FORWARD_LEFT;
+			direction = CAM_MODE_FORWARD_LEFT;
 		else
-		    direction = CAM_MODE_FORWARD;
+			direction = CAM_MODE_FORWARD;
 	}
 	else if(ud > 0)
 	{
 		if(lr > 0)
-		    direction = CAM_MODE_BACKWARD_RIGHT;
+			direction = CAM_MODE_BACKWARD_RIGHT;
 		else if(lr < 0)
-		    direction = CAM_MODE_BACKWARD_LEFT;
+			direction = CAM_MODE_BACKWARD_LEFT;
 		else
-		    direction = CAM_MODE_BACKWARD;
+			direction = CAM_MODE_BACKWARD;
 	}
 	else if(lr > 0)
-	    direction = CAM_MODE_RIGHT;
+		direction = CAM_MODE_RIGHT;
 	else if(lr < 0)
-	    direction = CAM_MODE_LEFT;
+		direction = CAM_MODE_LEFT;
 	else
 		direction = CAM_MODE_STOP;
 	return direction;
@@ -123,8 +123,8 @@ GetPlayerNextCamPos(direction, Float:pos[3], Float:vector[3], &Float:x, &Float:y
 		}
 		case CAM_MODE_FORWARD_RIGHT:
 		{
-			x = pos[0] + (OFFSET_X  + OFFSET_Y);
-			y = pos[1] + (OFFSET_Y  - OFFSET_X);
+			x = pos[0] + (OFFSET_X + OFFSET_Y);
+			y = pos[1] + (OFFSET_Y - OFFSET_X);
 			z = pos[2] + OFFSET_Z;
 		}
 		case CAM_MODE_BACKWARD_LEFT:

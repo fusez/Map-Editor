@@ -1,5 +1,5 @@
-#define GetPlayerAttachedObjectModel(%0,%1) \
-    (g_pAttachedModel[%0][%1])
+#define	GetPlayerAttachedObjectModel(%0,%1) \
+	(g_pAttachedModel[%0][%1])
 
 #define GetPlayerAttachedObjectBone(%0,%1) \
 	(g_pAttachedBone[%0][%1])
