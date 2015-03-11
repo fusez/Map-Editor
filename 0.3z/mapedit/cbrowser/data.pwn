@@ -3,13 +3,13 @@
 #define	MAX_CBROWSER_TITLE		20+1
 #define	MAX_CBROWSER_PAGESIZE	25
 
-new	PlayerText:g_cbBackgroundTD	[MAX_PLAYERS][3],
-	PlayerText:g_cbTitleTD		[MAX_PLAYERS],
-	PlayerText:g_cbCloseTD		[MAX_PLAYERS],
-	PlayerText:g_cbPageTD		[MAX_PLAYERS][3],
-	PlayerText:g_cbColorTD		[MAX_PLAYERS][MAX_CBROWSER_PAGESIZE],
-	g_cbTitleString				[MAX_CBROWSER_ID][MAX_CBROWSER_TITLE],
-	g_cbID						[MAX_PLAYERS] = {INVALID_CBROWSER_ID, ...};
+new	PlayerText: g_cbBackgroundTD	[MAX_PLAYERS][3],
+	PlayerText: g_cbTitleTD			[MAX_PLAYERS],
+	PlayerText: g_cbCloseTD			[MAX_PLAYERS],
+	PlayerText: g_cbPageTD			[MAX_PLAYERS][3],
+	PlayerText: g_cbColorTD			[MAX_PLAYERS][MAX_CBROWSER_PAGESIZE],
+	g_cbTitleString					[MAX_CBROWSER_ID][MAX_CBROWSER_TITLE],
+	g_cbID							[MAX_PLAYERS] = {INVALID_CBROWSER_ID, ...};
 
 enum
 {

@@ -63,12 +63,12 @@ public OnPlayerUpdate(playerid)
 
 		if(direction)
 		{
-			new	Float:pos[3],
-				Float:vector[3],
-				Float:x,
-				Float:y,
-				Float:z,
-				Float:speed;
+			new	Float: pos		[3],
+				Float: vector	[3],
+				Float: x,
+				Float: y,
+				Float: z,
+				Float: speed;
 
 			GetPlayerCameraPos(playerid, pos[0], pos[1], pos[2]);
 			GetPlayerCameraFrontVector(playerid, vector[0], vector[1], vector[2]);
@@ -118,7 +118,7 @@ public OnToolbarResponse(playerid, response)
 {
 	if(response == TOOLBAR_CAM)
 	{
-		new bool:toggle = (g_IsPlayerCamActivated{playerid}) ? (false) : (true);
+		new bool: toggle = (g_IsPlayerCamActivated{playerid}) ? (false) : (true);
 		if(TogglePlayerFreeCam(playerid, toggle))
 			CancelSelectTextDraw(playerid);
 		return 1;

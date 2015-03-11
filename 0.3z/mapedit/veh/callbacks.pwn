@@ -45,13 +45,13 @@ public OnPlayerDisconnect(playerid, reason)
 	g_pSelectVehiclePage		[playerid] = 0;
 	g_pCreateVehiclePage		[playerid] = 0;
 
-    g_pSelectVehicleSearch		[playerid] = "";
-    g_pCreateVehicleSearch		[playerid] = "";
+	g_pSelectVehicleSearch		[playerid] = "";
+	g_pCreateVehicleSearch		[playerid] = "";
 
 	for(new listitem; listitem < MAX_MBROWSER_PAGESIZE; listitem ++)
 	{
-	    g_pSelectVehicleResult	[playerid][listitem] = INVALID_VEHICLE_ID;
-    	g_pCreateVehicleResult	[playerid][listitem] = 0;
+		g_pSelectVehicleResult	[playerid][listitem] = INVALID_VEHICLE_ID;
+		g_pCreateVehicleResult	[playerid][listitem] = 0;
 	}
 
 	for(new i; i < 2; i ++)
@@ -119,8 +119,8 @@ public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	new modelid = GetVehicleModel(vehicleid),
-	    compatible = IsVehicleComponentCompatible(modelid, componentid);
+	new	modelid = GetVehicleModel(vehicleid),
+		compatible = IsVehicleComponentCompatible(modelid, componentid);
 
 	if(compatible)
 	{
@@ -131,7 +131,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 	#if defined v_OnVehicleMod
 		return v_OnVehicleMod(playerid, vehicleid, componentid);
 	#else
-	    return compatible;
+		return compatible;
 	#endif
 }
 #if defined _ALS_OnVehicleMod
@@ -148,8 +148,8 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	new vehicleid = GetPlayerVehicleID(playerid),
-	    worldid = (enterexit) ? (playerid) : (0);
+	new	vehicleid = GetPlayerVehicleID(playerid),
+		worldid = (enterexit) ? (playerid) : (0);
 
 	if(!enterexit && g_VehicleTuningTeleported{vehicleid - 1}) // leave
 	{
@@ -172,7 +172,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 	for(new passengerid; passengerid < MAX_PLAYERS; passengerid ++)
 	{
 		if(!IsPlayerConnected(passengerid))
-		    continue;
+			continue;
 
 		if(GetPlayerVehicleID(passengerid) == vehicleid)
 			SetPlayerVirtualWorld(passengerid, worldid);
@@ -203,13 +203,34 @@ public OnVehicleSpawn(vehicleid)
 	ChangeVehicleColor(vehicleid, color[0], color[1]);
 
 	if(paintjobid != 3)
-	    ChangeVehiclePaintjob(vehicleid, paintjobid);
+		ChangeVehiclePaintjob(vehicleid, paintjobid);
 
 	for(new slot; slot < 14; slot ++)
 	{
 		new componentid = g_VehicleComponent[vehicleid - 1][slot];
 		if(componentid != 0)
 			AddVehicleComponent(vehicleid, componentid);
+	}
+
+	for(new objectid = 1; objectid <= MAX_OBJECTS; objectid ++)
+	{
+		if(!IsValidObject(objectid))
+		    continue;
+
+		if(GetObjectAttachedToVehicle(objectid) == vehicleid)
+		{
+			new
+				Float:x,
+				Float:y,
+				Float:z,
+				Float:rx,
+				Float:ry,
+				Float:rz
+			;
+
+			GetObjectAttachOffset(objectid, x, y, z, rx, ry, rz);
+			AttachObjectToVehicle(objectid, vehicleid, x, y, z, rx, ry, rz);
+		}
 	}
 
 	#if defined v_OnVehicleSpawn
@@ -237,7 +258,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 		switch(listitem)
 		{
-		    case 0:
+			case 0:
 				ShowMBrowser(playerid, g_VehicleSelectBrowser);
 			case 1:
   				ShowMBrowser(playerid, g_VehicleCreateBrowser);
@@ -248,7 +269,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(!response)
 		{
-            g_pEditVehicle[playerid] = INVALID_VEHICLE_ID;
+			g_pEditVehicle[playerid] = INVALID_VEHICLE_ID;
 			ShowPlayerVehicleDialog(playerid, g_VehicleMainDialog);
 			return 1;
 		}
@@ -257,7 +278,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			case 0: // Remove
 			{
-				new vehicleid = g_pEditVehicle[playerid],
+				new	vehicleid = g_pEditVehicle[playerid],
 					modelid = GetVehicleModel(vehicleid);
 
 				DestroyVehicle(vehicleid);
@@ -285,7 +306,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 2: // Move
 			{
-				new vehicleid = g_pEditVehicle[playerid],
+				new	vehicleid = g_pEditVehicle[playerid],
 					modelid = GetVehicleModel(vehicleid),
 					Float:x,
 					Float:y,
@@ -297,7 +318,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GetVehicleZAngle(vehicleid, r);
 
 				if(g_pEditVehicleObject[playerid] != INVALID_OBJECT_ID)
-				    DestroyPlayerObject(playerid, g_pEditVehicleObject[playerid]);
+					DestroyPlayerObject(playerid, g_pEditVehicleObject[playerid]);
 				g_pEditVehicleObject[playerid] = CreatePlayerObject(playerid, 19300, x, y, z, 0.0, 0.0, r);
 				objectid = g_pEditVehicleObject[playerid];
 
@@ -330,10 +351,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowCBrowser(playerid, g_VehicleColorBrowser[1], g_pColorVehiclePage[playerid][1]);
 			case 9: // Repair
 			{
-			    new vehicleid = g_pEditVehicle[playerid],
-			        modelid = GetVehicleModel(vehicleid);
+				new	vehicleid = g_pEditVehicle[playerid],
+					modelid = GetVehicleModel(vehicleid);
 
-			    RepairVehicle(vehicleid);
+				RepairVehicle(vehicleid);
 
 				SendClientMessage(playerid, RGBA_GREEN,
 					sprintf("You have repaired the vehicle \"%s\".",
@@ -345,7 +366,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 10: // Tune
 			{
-			    new vehicleid = g_pEditVehicle[playerid],
+				new	vehicleid = g_pEditVehicle[playerid],
 					modelid = GetVehicleModel(vehicleid),
 					tuningshopid = GetVehicleModelTuningShop(modelid);
 
@@ -353,7 +374,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					SendClientMessage(playerid, RGBA_RED, "This vehicle cannot be tuned!");
 					ShowPlayerVehicleDialog(playerid, g_VehicleEditDialog);
-				    return 1;
+					return 1;
 				}
 
 				g_VehicleTuningTeleported{vehicleid - 1} = true;
@@ -371,13 +392,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				for(new driverid; driverid < MAX_PLAYERS; driverid ++)
 				{
 					if(!IsPlayerConnected(driverid))
-					    continue;
+						continue;
 
 					if(driverid == playerid)
-					    continue;
+						continue;
 
 					if(GetPlayerState(driverid) != PLAYER_STATE_DRIVER)
-					    continue;
+						continue;
 
 					if(GetPlayerVehicleID(driverid) == vehicleid)
 					{
@@ -456,11 +477,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 		new movement_type[2];
 		if(dialogid == g_VehicleXDialog)
-            movement_type = "x";
+			movement_type = "x";
 		else if(dialogid == g_VehicleYDialog)
-            movement_type = "y";
+			movement_type = "y";
 		else if(dialogid == g_VehicleZDialog)
-            movement_type = "z";
+			movement_type = "z";
 
 		if(isempty(inputtext))
 		{
@@ -528,7 +549,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	#if defined v_OnDialogResponse
 		return v_OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
 	#else
-	    return 0;
+		return 0;
 	#endif
 }
 #if defined _ALS_OnDialogResponse
@@ -551,7 +572,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 		{
 			case EDIT_RESPONSE_CANCEL:
 			{
-			    new vehicleid = g_pEditVehicle[playerid],
+				new vehicleid = g_pEditVehicle[playerid],
 					modelid = GetVehicleModel(vehicleid),
 					Float:x,
 					Float:y,
@@ -563,7 +584,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 				LoadPlayerObjectPos(playerid, objectid, x, y, z);
 				LoadPlayerObjectRot(playerid, objectid, rx, ry, rz);
 				SetVehiclePos(vehicleid, x, y, z);
-			    SetVehicleZAngle(vehicleid, rz);
+				SetVehicleZAngle(vehicleid, rz);
 
 				DestroyPlayerObject(playerid, objectid);
 				g_pEditVehicleObject[playerid] = INVALID_OBJECT_ID;
@@ -577,10 +598,10 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 			case EDIT_RESPONSE_FINAL:
 			{
 				new vehicleid = g_pEditVehicle[playerid],
-				    modelid = GetVehicleModel(vehicleid);
+					modelid = GetVehicleModel(vehicleid);
 
 				SetVehiclePos(vehicleid, fX, fY, fZ);
-			    SetVehicleZAngle(vehicleid, fRotZ);
+				SetVehicleZAngle(vehicleid, fRotZ);
 
 				DestroyPlayerObject(playerid, objectid);
 				g_pEditVehicleObject[playerid] = INVALID_OBJECT_ID;
@@ -595,7 +616,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 			{
 				new vehicleid = g_pEditVehicle[playerid];
 				SetVehiclePos(vehicleid, fX, fY, fZ);
-			    SetVehicleZAngle(vehicleid, fRotZ);
+				SetVehicleZAngle(vehicleid, fRotZ);
 			}
 		}
 	}
@@ -629,7 +650,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_SEARCH:
 			{
-    			format(g_pSelectVehicleSearch[playerid], MAX_MBROWSER_SEARCH, search);
+				format(g_pSelectVehicleSearch[playerid], MAX_MBROWSER_SEARCH, search);
 				g_pSelectVehiclePage[playerid] = 0;
 				ShowMBrowser(playerid, browserid);
 			}
@@ -637,7 +658,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			{
 				if(g_pSelectVehiclePage[playerid] > 0)
 				{
-                    g_pSelectVehiclePage[playerid] --;
+					g_pSelectVehiclePage[playerid] --;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -646,7 +667,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				new min_pageitem = (g_pSelectVehiclePage[playerid] + 1) * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < MAX_VEHICLES)
 				{
-                    g_pSelectVehiclePage[playerid] ++;
+					g_pSelectVehiclePage[playerid] ++;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -655,7 +676,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				new min_pageitem = page * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < MAX_VEHICLES)
 				{
-	                g_pSelectVehiclePage[playerid] = page;
+					g_pSelectVehiclePage[playerid] = page;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -664,7 +685,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				g_pEditVehicle[playerid] = g_pSelectVehicleChoice[playerid];
 
 				new vehicleid = g_pEditVehicle[playerid],
-				    modelid = GetVehicleModel(vehicleid);
+					modelid = GetVehicleModel(vehicleid);
 
 				HideMBrowser(playerid);
 				ShowPlayerVehicleDialog(playerid, g_VehicleEditDialog);
@@ -690,10 +711,10 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				}
 				else
 				{
-				    g_pSelectVehicleChoice[playerid] = INVALID_VEHICLE_ID;
-				    
-				    HideMBrowserListItem(playerid, listitem);
-				    HideMBrowserModel(playerid);
+					g_pSelectVehicleChoice[playerid] = INVALID_VEHICLE_ID;
+				
+					HideMBrowserListItem(playerid, listitem);
+					HideMBrowserModel(playerid);
 				}
 			}
 		}
@@ -710,7 +731,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_SEARCH:
 			{
-    			format(g_pCreateVehicleSearch[playerid], MAX_MBROWSER_SEARCH, search);
+				format(g_pCreateVehicleSearch[playerid], MAX_MBROWSER_SEARCH, search);
 				g_pCreateVehiclePage[playerid] = 0;
 				ShowMBrowser(playerid, browserid);
 			}
@@ -727,7 +748,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				new min_pageitem = (g_pCreateVehiclePage[playerid] + 1) * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < 212)
 				{
-                    g_pCreateVehiclePage[playerid] ++;
+					g_pCreateVehiclePage[playerid] ++;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -736,7 +757,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				new min_pageitem = page * MAX_MBROWSER_PAGESIZE;
 				if(min_pageitem < 212)
 				{
-                    g_pCreateVehiclePage[playerid] = page;
+					g_pCreateVehiclePage[playerid] = page;
 					ShowMBrowser(playerid, browserid);
 				}
 			}
@@ -789,7 +810,7 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 	#if defined v_OnMBrowserResponse
 		return v_OnMBrowserResponse(playerid, browserid, response, page, listitem, search);
 	#else
-	    return 0;
+		return 0;
 	#endif
 }
 #if defined _ALS_OnMBrowserResponse
@@ -811,13 +832,13 @@ public OnMBrowserShown(playerid, browserid)
 		SetMBrowserPage(playerid, g_pSelectVehiclePage[playerid]);
 
 		if( strlen(g_pSelectVehicleSearch[playerid]) > 0 )
-	    {
+		{
 			SetMBrowserSearch(playerid, g_pSelectVehicleSearch[playerid]);
 
 			for(new listitem; listitem < MAX_MBROWSER_PAGESIZE; listitem ++)
 			{
 				g_pSelectVehicleResult[playerid][listitem] = INVALID_VEHICLE_ID;
-                HideMBrowserListItem(playerid, listitem);
+				HideMBrowserListItem(playerid, listitem);
 			}
 
 			new	min_pageitem = g_pSelectVehiclePage[playerid] * MAX_MBROWSER_PAGESIZE,
@@ -825,9 +846,9 @@ public OnMBrowserShown(playerid, browserid)
 				search_value = strval(g_pSelectVehicleSearch[playerid]);
 
 			for(new vehicleid = 1, matches; vehicleid <= MAX_VEHICLES; vehicleid ++)
-    	    {
+			{
 				if(!IsValidVehicle(vehicleid))
-				    continue;
+					continue;
 
 				new modelid = GetVehicleModel(vehicleid);
 
@@ -843,8 +864,8 @@ public OnMBrowserShown(playerid, browserid)
 						SetMBrowserListItem(playerid, listitem, GetVehicleModelName(modelid));
 					}
 
-			    	if(++ matches >= max_pageitem)
-			    	    break;
+					if(++ matches >= max_pageitem)
+						break;
 				}
 			}
 		}
@@ -855,7 +876,7 @@ public OnMBrowserShown(playerid, browserid)
 			for(new listitem; listitem < MAX_MBROWSER_PAGESIZE; listitem ++)
 			{
 				new pageitem = listitem + (g_pSelectVehiclePage[playerid] * MAX_MBROWSER_PAGESIZE),
-				    vehicleid = pageitem + 1;
+					vehicleid = pageitem + 1;
 
 				if(IsValidVehicle(vehicleid))
 				{
@@ -899,8 +920,8 @@ public OnMBrowserShown(playerid, browserid)
 				search_value = strval(g_pCreateVehicleSearch[playerid]);
 
 			for(new modelid = 400, matches; modelid <= 611; modelid ++)
-    	    {
-   	    	    if(
+			{
+   				if(
 					(search_value != 0 && search_value == modelid) ||
 					strfind(GetVehicleModelName(modelid), g_pCreateVehicleSearch[playerid], true) != -1
 				){
@@ -915,7 +936,7 @@ public OnMBrowserShown(playerid, browserid)
 					if(++ matches >= max_pageitem)
 						break;
 				}
-		    }
+			}
 		}
 		else
 		{
@@ -924,7 +945,7 @@ public OnMBrowserShown(playerid, browserid)
 			for(new listitem; listitem < MAX_MBROWSER_PAGESIZE; listitem ++)
 			{
 				new pageitem = listitem + (g_pCreateVehiclePage[playerid] * MAX_MBROWSER_PAGESIZE),
-				    modelid = pageitem + 400;
+					modelid = pageitem + 400;
 
 				switch(modelid)
 				{
@@ -950,7 +971,7 @@ public OnMBrowserShown(playerid, browserid)
 	#if defined v_OnMBrowserShown
 		return v_OnMBrowserShown(playerid, browserid);
 	#else
-	    return 0;
+		return 0;
 	#endif
 }
 #if defined _ALS_OnMBrowserShown
@@ -976,7 +997,7 @@ public OnCBrowserResponse(playerid, browserid, response, color)
 				case CBROWSER_RESPONSE_CLOSE:
 				{
 					HideCBrowser(playerid);
-				    ShowPlayerVehicleDialog(playerid, g_VehicleEditDialog);
+					ShowPlayerVehicleDialog(playerid, g_VehicleEditDialog);
 				}
 				case CBROWSER_RESPONSE_PAGE_BACK:
 				{
@@ -1017,7 +1038,7 @@ public OnCBrowserResponse(playerid, browserid, response, color)
 	#if defined v_OnCBrowserResponse
 		return v_OnCBrowserResponse(playerid, browserid, response, color);
 	#else
-	    return 0;
+		return 0;
 	#endif
 }
 #if defined _ALS_OnCBrowserResponse
@@ -1043,7 +1064,7 @@ public OnCBrowserShown(playerid, browserid, page)
 		{
 			new pageitem = listitem + (page * MAX_CBROWSER_PAGESIZE);
 			if(pageitem < g_MaxVehicleColors)
-			    SetCBrowserColor(playerid, listitem, g_VehicleColors[pageitem]);
+				SetCBrowserColor(playerid, listitem, g_VehicleColors[pageitem]);
 			else
 				HideCBrowserColor(playerid, listitem);
 		}
@@ -1053,7 +1074,7 @@ public OnCBrowserShown(playerid, browserid, page)
 	#if defined v_OnCBrowserShown
 		return v_OnCBrowserShown(playerid, browserid, page);
 	#else
-	    return 0;
+		return 0;
 	#endif
 }
 #if defined _ALS_OnCBrowserShown

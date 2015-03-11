@@ -11,18 +11,18 @@ TogglePlayerFreeCam(playerid, bool:toggle)
 				return 0;
 			case PLAYER_STATE_DRIVER, PLAYER_STATE_PASSENGER:
 			{
-				new	Float:x,
-					Float:y,
-					Float:z;
+				new	Float: x,
+					Float: y,
+					Float: z;
 
 				GetVehiclePos(GetPlayerVehicleID(playerid), x, y, z);
 				SetPlayerPos(playerid, x, y, z);
 			}
 		}
 
-		new	Float:x,
-			Float:y,
-			Float:z;
+		new	Float: x,
+			Float: y,
+			Float: z;
 
 		GetPlayerPos(playerid, x, y, z);
 
@@ -36,9 +36,9 @@ TogglePlayerFreeCam(playerid, bool:toggle)
 	}
 	else
 	{
-		new	Float:x,
-			Float:y,
-			Float:z;
+		new	Float: x,
+			Float: y,
+			Float: z;
 
 		GetPlayerObjectPos(playerid, g_PlayerCamObject[playerid], x, y, z);
 

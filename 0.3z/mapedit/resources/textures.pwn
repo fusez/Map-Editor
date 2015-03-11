@@ -8385,6 +8385,29 @@ new	const g_MaxTextures = sizeof g_Textures;
 
 /******************************************************************************/
 
+stock GetTextureID(modelid, txd[], texture[])
+{
+	new
+		txd_packed[MAX_TXD_NAME char],
+		texture_packed[MAX_TEXTURE_NAME char]
+	;
+
+	strpack(txd_packed, txd, MAX_TXD_NAME);
+	strpack(texture_packed, texture, MAX_TEXTURE_NAME);
+
+	for(new textureid; textureid < g_MaxTextures; textureid ++)
+	{
+        if(
+			modelid == g_Textures[textureid][e_TextureModel] &&
+			!strcmp(txd_packed, g_Textures[textureid][e_TextureTXD]) &&
+			!strcmp(texture_packed, g_Textures[textureid][e_TextureName])
+		){
+		    return textureid;
+		}
+	}
+	return -1;
+}
+
 stock GetTextureModel(textureid)
 {
 	new modelid;

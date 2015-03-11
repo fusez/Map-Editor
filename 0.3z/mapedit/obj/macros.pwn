@@ -1,8 +1,8 @@
 #define GetObjectModel(%0) \
 	(g_ObjectModel[%0 - 1])
 
-#define GetPlayerObjectModel(%0, %1) \
-	(g_PlayerObjectModel[%0][%1 - 1])
+#define SetObjectModel(%0,%1) \
+	(g_ObjectModel[%0 - 1] = %1)
 
 #define GetObjectAttachedToObject(%0) \
 	(g_ObjectAttachToObject[%0 - 1])

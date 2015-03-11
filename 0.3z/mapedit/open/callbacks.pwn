@@ -27,8 +27,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!response)
 			return 1;
 
-		new tick = GetTickCount(),
-			success = OpenMap(inputtext);
+		new
+			pre_tick = GetTickCount(),
+			success = mparse_LoadMap(inputtext),
+			post_tick = GetTickCount()
+		;
 
 		if(!success)
 		{
@@ -39,7 +42,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 		SendClientMessageToAll(RGBA_WHITE,
 			sprintf("%s (ID: %i) has opened the map \"%s\", loading this map took %i ms.",
-				ret_GetPlayerName(playerid), playerid, inputtext, GetTickCount() - tick
+				ret_GetPlayerName(playerid), playerid, inputtext, post_tick - pre_tick
 			)
 		);
 		return 1;

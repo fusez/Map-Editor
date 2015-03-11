@@ -1,12 +1,12 @@
 #define	MAX_ATTACHED_INDEX	10
 #define	MAX_ATTACHED_BONE	19
 
-new	bool:g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
+new	bool: g_pIsAttached			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	g_pAttachedModel			[MAX_PLAYERS][MAX_ATTACHED_INDEX],
 	g_pAttachedBone				[MAX_PLAYERS][MAX_ATTACHED_INDEX],
-	Float:g_pAttachedOffset		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
-	Float:g_pAttachedRot		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
-	Float:g_pAttachedScale		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
+	Float: g_pAttachedOffset	[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
+	Float: g_pAttachedRot		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
+	Float: g_pAttachedScale		[MAX_PLAYERS][MAX_ATTACHED_INDEX][3],
 	g_pAttachedColor			[MAX_PLAYERS][MAX_ATTACHED_INDEX][2],
 
 	g_pEditAttachIndex			[MAX_PLAYERS char],

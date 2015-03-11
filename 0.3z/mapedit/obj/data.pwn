@@ -9,8 +9,8 @@ enum
 	OBJECT_TYPE_TEXT
 }
 
-new g_ObjectModel					[MAX_OBJECTS],
-	g_pObjectModel					[MAX_PLAYERS][MAX_OBJECTS],
+new
+	g_ObjectModel                   [MAX_OBJECTS],
 
 	g_ObjectAttachToObject			[MAX_OBJECTS] = {INVALID_OBJECT_ID, ...},
 	g_ObjectAttachToVehicle     	[MAX_OBJECTS] = {INVALID_VEHICLE_ID, ...},
@@ -77,7 +77,8 @@ new g_ObjectModel					[MAX_OBJECTS],
 	g_ObjectTextMaterialSizeDialog,
 	g_ObjectTextFontDialog,
 	g_ObjectTextFontSizeDialog,
-	g_ObjectTextAlignmentDialog;
+	g_ObjectTextAlignmentDialog
+;
 
 
 #include "mapedit/obj/macros.pwn"

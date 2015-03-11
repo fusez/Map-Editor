@@ -1,5 +1,8 @@
-#define MIN_DIALOG_ID		1000
-#define INVALID_DIALOG_ID	-1
+#define MIN_DIALOG_ID \
+	(1000)
+
+#define INVALID_DIALOG_ID \
+	(-1)
 
 new
 	g_pDialogID[MAX_PLAYERS],

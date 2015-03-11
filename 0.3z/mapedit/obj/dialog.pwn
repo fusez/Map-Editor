@@ -7,7 +7,7 @@ ShowPlayerObjectDialog(playerid, dialogid)
 			dialogid,
 			DIALOG_STYLE_LIST,
 			"Object",
-			"Select Object\nCreate Object",
+			"Select Object (List)\nSelect Object (3D Selection)\nCreate Object (List)",
 			"Choose",
 			"Close"
 		);
@@ -15,13 +15,15 @@ ShowPlayerObjectDialog(playerid, dialogid)
 	}
 	else if(dialogid == g_ObjectEditDialog)
 	{
-		new objectid = g_pEditObject[playerid],
+		new
+			objectid = g_pEditObject[playerid],
 			select_attach_object = g_pSelectedAttachObject[playerid],
 			attach_to_objectid = GetObjectAttachedToObject(objectid),
 			attach_to_vehicleid = GetObjectAttachedToVehicle(objectid),
 			Float: position	[3],
 			Float: rotation	[3],
-			info			[1000];
+			info			[1000]
+		;
 
 		strcat(info, "Remove\n");
 		strcat(info, "Duplicate\n");

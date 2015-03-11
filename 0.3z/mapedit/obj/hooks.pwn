@@ -5,7 +5,8 @@ stock o_CreateObject(modelid, Float:X, Float:Y, Float:Z, Float:rX, Float:rY, Flo
 	new objectid = CreateObject(modelid, X, Y, Z, rX, rY, rZ, DrawDistance);
 	if(objectid != INVALID_OBJECT_ID)
 	{
-		g_ObjectModel[objectid - 1] = modelid;
+		SetObjectModel(objectid, modelid);
+
 		for(new materialindex; materialindex < MAX_OBJECT_INDEX; materialindex ++)
 		{
 			RemoveObjectMaterial(objectid, materialindex);
@@ -27,7 +28,7 @@ stock o_DestroyObject(objectid)
 {
 	if(IsValidObject(objectid))
 	{
-		g_ObjectModel[objectid - 1] = 0;
+		SetObjectModel(objectid, 0);
 
 		if(
 			GetObjectAttachedToObject(objectid) != INVALID_OBJECT_ID ||
@@ -131,49 +132,20 @@ stock o_DestroyObject(objectid)
 
 /******************************************************************************/
 
-stock o_CreatePlayerObject(playerid, modelid, Float:X, Float:Y, Float:Z, Float:rX, Float:rY, Float:rZ, Float:DrawDistance = 0.0)
+stock o_SetObjectMaterial(objectid, materialindex, modelid, txdname[], texturename[], materialcolor = 0xFFFFFFFF)
 {
-	new objectid = CreatePlayerObject(playerid, modelid, X, Y, Z, rX, rY, rZ, DrawDistance);
-	if(objectid != INVALID_OBJECT_ID)
-		g_pObjectModel[playerid][objectid - 1] = modelid;
-	return objectid;
-}
-#if defined _ALS_CreatePlayerObject
-	#undef CreatePlayerObject
-#else
-	#define _ALS_CreatePlayerObject
-#endif
-#define CreatePlayerObject o_CreatePlayerObject
+	new textureid = GetTextureID(modelid, txdname, texturename);
 
-/******************************************************************************/
-
-stock o_DestroyPlayerObject(playerid, objectid)
-{
-	if(IsValidPlayerObject(playerid, objectid))
-		g_pObjectModel[playerid][objectid - 1] = 0;
-	DestroyPlayerObject(playerid, objectid);
-}
-#if defined _ALS_DestroyPlayerObject
-	#undef DestroyPlayerObject
-#else
-	#define _ALS_DestroyPlayerObject
-#endif
-#define DestroyPlayerObject o_DestroyPlayerObject
-
-/******************************************************************************/
-
-stock o_SetObjectMaterial(objectid, materialindex, textureid, color = 0xFFFFFFFF)
-{
 	g_ObjectTextureID		[objectid - 1][materialindex] = textureid;
-	g_ObjectTextureColor	[objectid - 1][materialindex] = color;
+	g_ObjectTextureColor	[objectid - 1][materialindex] = materialcolor;
 
 	SetObjectMaterial(
 		objectid,
 		materialindex,
-		GetTextureModel	(textureid),
-		GetTextureTXD	(textureid),
-		GetTextureName	(textureid),
-		color
+		modelid,
+		txdname,
+		texturename,
+		materialcolor
 	);
 }
 #if defined _ALS_SetObjectMaterial

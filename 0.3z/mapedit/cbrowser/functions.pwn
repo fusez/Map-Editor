@@ -201,6 +201,6 @@ stock CreateCBrowser(&browserid, const title[])
 		return 0;
 
 	browserid = browsers ++;
-	format ( g_cbTitleString[browserid], MAX_CBROWSER_TITLE, title );
+	format(g_cbTitleString[browserid], MAX_CBROWSER_TITLE, title);
 	return 1;
 }

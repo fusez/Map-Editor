@@ -338,7 +338,7 @@ stock CreateMBrowser(&browserid, title[], button[])
 
 	browserid = mbrowsers ++;
 
-	format ( g_mbTitleString [browserid], MAX_MBROWSER_TITLE, title );
-	format ( g_mbButtonString [browserid], MAX_MBROWSER_BUTTON, button );
+	format(g_mbTitleString[browserid], MAX_MBROWSER_TITLE, title);
+	format(g_mbButtonString[browserid], MAX_MBROWSER_BUTTON, button);
 	return 1;
 }

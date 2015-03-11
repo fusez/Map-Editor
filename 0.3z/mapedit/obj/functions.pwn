@@ -81,10 +81,14 @@ DuplicateObject(old_objectid, bool:duplicate_attachments = true)
 	{
 		if(IsObjectTextured(old_objectid, materialindex))
 		{
+			new textureid = GetObjectTextureID(old_objectid, materialindex);
+
 			SetObjectMaterial(
 				new_objectid,
 				materialindex,
-				GetObjectTextureID		(old_objectid, materialindex),
+				GetTextureModel			(textureid),
+				GetTextureTXD           (textureid),
+				GetTextureName			(textureid),
 				GetObjectTextureColor	(old_objectid, materialindex)
 			);
 		}
@@ -107,12 +111,14 @@ DuplicateObject(old_objectid, bool:duplicate_attachments = true)
 
 	if(attach_to_objectid != INVALID_OBJECT_ID)
 	{
-		new	Float:ox,
+		new
+			Float:ox,
 			Float:oy,
 			Float:oz,
 			Float:orx,
 			Float:ory,
-			Float:orz;
+			Float:orz
+		;
 
 		GetObjectAttachOffset(old_objectid, ox, oy, oz, orx, ory, orz);
 		AttachObjectToObject(new_objectid, attach_to_objectid, ox, oy, oz, orx, ory, orz);

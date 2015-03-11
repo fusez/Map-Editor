@@ -1,6 +1,10 @@
 IsValidFilename(const filename[])
 {
-	for(new i, len = strlen(filename); i < len; i ++)
+	new len = strlen(filename);
+	if(len == 0)
+	    return 0;
+
+	for(new i; i < len; i ++)
 	{
 		if(
 			filename[i] == '/' ||

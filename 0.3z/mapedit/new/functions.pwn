@@ -9,10 +9,10 @@ ClearMap()
 	for(new pickupid; pickupid < MAX_PICKUPS; pickupid ++)
 		DestroyPickup(pickupid);
 
-	for(new playerid; playerid < MAX_PLAYERS; playerid ++)
+	for(new playerid, max_playerid = GetMaxPlayers(); playerid < max_playerid; playerid ++)
 	{
 		if(!IsPlayerConnected(playerid))
-		    continue;
+	    	continue;
 
 		for(new index; index < MAX_ATTACHED_INDEX; index ++)
 		    RemovePlayerAttachedObject(playerid, index);

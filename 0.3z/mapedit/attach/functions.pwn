@@ -82,9 +82,9 @@ stock ShowPlayerAttachDialog(playerid, dialogid)
 		new	index = g_pEditAttachIndex{playerid},
 			modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
-			Float:o		[3],
-			Float:r		[3],
-			Float:s		[3],
+			Float: o	[3],
+			Float: r	[3],
+			Float: s	[3],
 			attach_argb	[2],
 			info		[500];
 
@@ -151,11 +151,11 @@ stock ShowPlayerAttachDialog(playerid, dialogid)
 		dialogid == g_AttachSZDialog
 	){
 		new	index = g_pEditAttachIndex{playerid},
-			Float:o	[3],
-			Float:r	[3],
-			Float:s	[3],
-			caption	[27],
-			info	[22];
+			Float: o	[3],
+			Float: r	[3],
+			Float: s	[3],
+			caption		[27],
+			info		[22];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
 		GetPlayerAttachedObjectRot		( playerid, index, r[0], r[1], r[2] );

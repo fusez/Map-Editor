@@ -45,7 +45,6 @@ public OnPlayerDisconnect(playerid, reason)
 {
 	for(new object; object < MAX_OBJECTS; object ++)
 	{
-		g_pObjectModel	[playerid][object] = 0;
 		for(new i; i < 3; i ++)
 		{
 			g_pObjectSavePos	[playerid][object][i] = 0.0;
@@ -106,6 +105,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			case 0:
 				ShowMBrowser(playerid, g_ObjectSelectBrowser);
 			case 1:
+			{
+				CancelSelectTextDraw(playerid);
+				SelectObject(playerid);
+			}
+			case 2:
 				ShowMBrowser(playerid, g_ObjectCreateBrowser);
 		}
 		return 1;
@@ -123,8 +127,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 		    case 0: // Remove
 		    {
-				new objectid = g_pEditObject[playerid],
-					modelid = GetObjectModel(objectid);
+				new
+					objectid = g_pEditObject[playerid],
+					modelid = GetObjectModel(objectid)
+				;
 
 				DestroyObject(objectid);
 				g_pEditObject[playerid] = INVALID_OBJECT_ID;
@@ -136,9 +142,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			case 1: // Duplicate
 		    {
-				new objectid = g_pEditObject[playerid],
+				new
+					objectid = g_pEditObject[playerid],
 					modelid = GetObjectModel(objectid),
-					new_objectid = DuplicateObject(objectid);
+					new_objectid = DuplicateObject(objectid)
+				;
 
 				if(new_objectid == INVALID_OBJECT_ID)
 					SendClientMessage(playerid, RGBA_RED, "This object could not be duplicated!");
@@ -154,10 +162,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    }
 		    case 2: // Move
 			{
-				new objectid = g_pEditObject[playerid],
+				new
+					objectid = g_pEditObject[playerid],
 				    modelid = GetObjectModel(objectid),
 					attach_object = GetObjectAttachedToObject(objectid),
-					attach_vehicle = GetObjectAttachedToVehicle(objectid);
+					attach_vehicle = GetObjectAttachedToVehicle(objectid)
+				;
 
 				if(attach_object == INVALID_OBJECT_ID && attach_vehicle == INVALID_VEHICLE_ID)
 				{
@@ -451,10 +461,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						g_pEditObject[playerid] = new_objectid;
 						DestroyObject(objectid);
 
+						new textureid = GetObjectTextureID(new_objectid, materialindex);
+
 						SetObjectMaterial(
 							new_objectid,
 							materialindex,
-							GetObjectTextureID(new_objectid, materialindex)
+							GetTextureModel	(textureid),
+							GetTextureTXD	(textureid),
+							GetTextureName	(textureid)
 						);
 
 						SendClientMessage(playerid, RGBA_GREEN,
@@ -519,14 +533,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SendClientMessage(playerid, RGBA_RED, "The text of this object could not be set!");
 		else
 		{
-			if(strfind(inputtext, ";") != -1 || strfind(inputtext, "\\") != -1)
+			if(strfind(inputtext, ",") != -1 || strfind(inputtext, "\\") != -1)
 				SendClientMessage(playerid, RGBA_RED, "The text of this object could not be set!");
 			else
 			{
-				new objectid = g_pEditObject[playerid],
+				new
+					objectid = g_pEditObject[playerid],
 				    modelid = GetObjectModel(objectid),
 					materialindex = g_pEditObjectIndex{playerid},
-					new_objectid;
+					new_objectid
+				;
 
 				RemoveObjectMaterial(objectid, materialindex);
 
@@ -981,8 +997,10 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			{
 				g_pEditObject[playerid] = g_pSelectObjectChoice[playerid];
 
-				new objectid = g_pEditObject[playerid],
-				    modelid = GetObjectModel(objectid);
+				new
+					objectid = g_pEditObject[playerid],
+				    modelid = GetObjectModel(objectid)
+				;
 
 				HideMBrowser(playerid);
 				ShowPlayerObjectDialog(playerid, g_ObjectEditDialog);
@@ -992,9 +1010,11 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 			}
 			case MBROWSER_RESPONSE_LISTITEM:
 			{
-				new pageitem = listitem + (g_pSelectObjectPage[playerid] * MAX_MBROWSER_PAGESIZE),
+				new
+					pageitem = listitem + (g_pSelectObjectPage[playerid] * MAX_MBROWSER_PAGESIZE),
 				    is_searching = strlen(g_pSelectObjectSearch[playerid]) > 0,
-				    objectid = (is_searching) ? (g_pSelectObjectResult[playerid][listitem]) : (pageitem + 1);
+				    objectid = (is_searching) ? (g_pSelectObjectResult[playerid][listitem]) : (pageitem + 1)
+				;
 
 				if(IsValidObject(objectid))
 				{
@@ -1160,7 +1180,13 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 				g_pEditObject[playerid] = new_objectid;
 				DestroyObject(objectid);
 
-				SetObjectMaterial(new_objectid, materialindex, textureid);
+				SetObjectMaterial(
+					new_objectid,
+					materialindex,
+					GetTextureModel	(textureid),
+					GetTextureTXD	(textureid),
+					GetTextureName	(textureid)
+				);
 
 				SendClientMessage(playerid, RGBA_GREEN,
 					sprintf("You have set the texture %i of the object \"%s\" to \"%s\".",
@@ -1482,12 +1508,22 @@ public OnCBrowserResponse(playerid, browserid, response, color)
 
 				if(browserid == g_ObjectTextureColorBrowser)
 				{
-					new textureid = GetObjectTextureID(objectid, materialindex),
+					new
+						textureid = GetObjectTextureID(objectid, materialindex),
 						rgba_color = g_VehicleColors[pageitem],
-					    argb_color = RGBAtoARGB(rgba_color);
+					    argb_color = RGBAtoARGB(rgba_color)
+					;
 
 					RemoveObjectMaterialText(objectid, materialindex);
-					SetObjectMaterial(objectid, materialindex, textureid, argb_color);
+
+					SetObjectMaterial(
+						objectid,
+						materialindex,
+						GetTextureModel	(textureid),
+						GetTextureTXD	(textureid),
+						GetTextureName	(textureid),
+						argb_color
+					);
 				}
 				else if(browserid == g_ObjectFontColorBrowser)
 				{
@@ -1614,3 +1650,31 @@ public OnToolbarResponse(playerid, response)
 #endif
 
 /******************************************************************************/
+
+public OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ)
+{
+	g_pEditObject[playerid] = objectid;
+
+	HideMBrowser(playerid);
+	ShowPlayerObjectDialog(playerid, g_ObjectEditDialog);
+
+	CancelEdit(playerid);
+	SelectTextDraw(playerid, 0xFF0000FF);
+
+	SendClientMessage(playerid, RGBA_GREEN,
+		sprintf("You have selected the object \"%s\".", GetObjectModelName(modelid))
+	);
+
+	#if defined o_OnPlayerSelectObject
+		o_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
+	#endif
+}
+#if defined _ALS_OnPlayerSelectObject
+	#undef OnPlayerSelectObject
+#else
+	#define _ALS_OnPlayerSelectObject
+#endif
+#define OnPlayerSelectObject o_OnPlayerSelectObject
+#if defined o_OnPlayerSelectObject
+	forward o_OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
+#endif

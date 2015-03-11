@@ -108,7 +108,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		PlayerPlaySound(playerid, 1083, 0.0, 0.0, 0.0);
 		return 1;
 	}
-	for(new index; index < 25; index ++)
+	for(new index; index < MAX_CBROWSER_PAGESIZE; index ++)
 	{
 		if(playertextid == g_cbColorTD[playerid][index])
 		{

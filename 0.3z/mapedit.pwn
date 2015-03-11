@@ -3,6 +3,7 @@
 native IsValidVehicle(vehicleid);
 #include <a_samp>
 #include <strlib>
+#include <sscanf2>
 
 /******************************************************************************/
 
@@ -36,6 +37,7 @@ native IsValidVehicle(vehicleid);
 #include "mapedit/cam/data.pwn" // camera mode
 #include "mapedit/oedit/data.pwn" // offset editor
 #include "mapedit/new/data.pwn" // new map
+#include "mapedit/mparse/data.pwn" // map parser
 #include "mapedit/open/data.pwn" // open map
 #include "mapedit/save/data.pwn" // save map
 #include "mapedit/info/data.pwn" // ingame information

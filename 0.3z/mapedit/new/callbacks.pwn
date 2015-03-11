@@ -29,6 +29,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 
 	    ClearMap();
+
 		SendClientMessageToAll(RGBA_WHITE,
 			sprintf("%s (ID: %i) has created a new map.", ret_GetPlayerName(playerid), playerid)
 		);

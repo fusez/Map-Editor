@@ -2,23 +2,23 @@
 
 public OnFilterScriptInit()
 {
-	CreateDialog ( g_AttachIndexDialog );
-	CreateDialog ( g_AttachEditDialog );
-	CreateDialog ( g_AttachBoneDialog );
-	CreateDialog ( g_AttachXDialog );
-	CreateDialog ( g_AttachYDialog );
-	CreateDialog ( g_AttachZDialog );
-	CreateDialog ( g_AttachRXDialog );
-	CreateDialog ( g_AttachRYDialog );
-	CreateDialog ( g_AttachRZDialog );
-	CreateDialog ( g_AttachSXDialog );
-	CreateDialog ( g_AttachSYDialog );
-	CreateDialog ( g_AttachSZDialog );
+	CreateDialog(g_AttachIndexDialog);
+	CreateDialog(g_AttachEditDialog);
+	CreateDialog(g_AttachBoneDialog);
+	CreateDialog(g_AttachXDialog);
+	CreateDialog(g_AttachYDialog);
+	CreateDialog(g_AttachZDialog);
+	CreateDialog(g_AttachRXDialog);
+	CreateDialog(g_AttachRYDialog);
+	CreateDialog(g_AttachRZDialog);
+	CreateDialog(g_AttachSXDialog);
+	CreateDialog(g_AttachSYDialog);
+	CreateDialog(g_AttachSZDialog);
 
-	CreateMBrowser ( g_AttachModelBrowser, "Attached Model", "Set" );
+	CreateMBrowser(g_AttachModelBrowser, "Attached Model", "Set");
 
-	for ( new i; i < 2; i ++ )
-		CreateCBrowser ( g_AttachColorBrowser[i], sprintf("Attached Color %i", i + 1) );
+	for(new i; i < 2; i ++)
+		CreateCBrowser(g_AttachColorBrowser[i], sprintf("Attached Color %i", i + 1) );
 
 	#if defined a_OnFilterScriptInit
 		a_OnFilterScriptInit();
@@ -80,10 +80,10 @@ public OnPlayerSpawn(playerid)
 
 		new	modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
-			Float:o	[3],
-			Float:r	[3],
-			Float:s	[3],
-			c		[2];
+			Float: o	[3],
+			Float: r	[3],
+			Float: s	[3],
+			c			[2];
 
 		GetPlayerAttachedObjectOffset	(playerid, index, o[0], o[1], o[2]);
 		GetPlayerAttachedObjectRot		(playerid, index, r[0], r[1], r[2]);
@@ -263,9 +263,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		new	index = g_pEditAttachIndex{playerid},
 			modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = listitem + 1,
-			Float:o		[3],
-			Float:r		[3],
-			Float:s		[3],
+			Float: o	[3],
+			Float: r	[3],
+			Float: s	[3],
 			attach_argb	[2];
 
 		GetPlayerAttachedObjectOffset	( playerid, index, o[0], o[1], o[2] );
@@ -322,10 +322,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		new	index = g_pEditAttachIndex{playerid},
 			modelid = GetPlayerAttachedObjectModel(playerid, index),
 			boneid = GetPlayerAttachedObjectBone(playerid, index),
-			Float:input_float = floatstr(inputtext),
-			Float:o		[3],
-			Float:r		[3],
-			Float:s		[3],
+			Float: input_float = floatstr(inputtext),
+			Float: o	[3],
+			Float: r	[3],
+			Float: s	[3],
 			attach_argb	[2],
 			action_str	[11];
 
@@ -492,9 +492,9 @@ public OnMBrowserResponse(playerid, browserid, response, page, listitem, search[
 					modelid = g_ObjectModels[model_index][e_ObjectModelID],
 					index = g_pEditAttachIndex{playerid},
 					boneid = 1,
-					Float:o		[3] = {0.0, ...},
-					Float:r		[3] = {0.0, ...},
-					Float:s		[3] = {1.0, ...},
+					Float: o	[3] = {0.0, ...},
+					Float: r	[3] = {0.0, ...},
+					Float: s	[3] = {1.0, ...},
 					attach_argb	[2] = {0xFFFFFFFF, ...};
 
 				if(IsPlayerAttachedObjectSlotUsed(playerid, index))
@@ -589,8 +589,8 @@ public OnMBrowserShown(playerid, browserid)
 				HideMBrowserListItem(playerid, listitem);
 			}
 
-			new min_pageitem = g_pAttachModelPage[playerid] * MAX_MBROWSER_PAGESIZE,
-			    max_pageitem = min_pageitem + 20,
+			new	min_pageitem = g_pAttachModelPage[playerid] * MAX_MBROWSER_PAGESIZE,
+				max_pageitem = min_pageitem + 20,
 				search_value = strval(g_pAttachModelSearch[playerid]),
 				packed_search[MAX_MBROWSER_SEARCH];
 
@@ -700,9 +700,9 @@ public OnCBrowserResponse(playerid, browserid, response, color)
 						attach_index = g_pEditAttachIndex{playerid},
 						modelid = GetPlayerAttachedObjectModel(playerid, attach_index),
 						boneid = GetPlayerAttachedObjectBone(playerid, attach_index),
-						Float:o		[3],
-						Float:r		[3],
-						Float:s		[3],
+						Float: o	[3],
+						Float: r	[3],
+						Float: s	[3],
 						attach_argb	[2];
 
 					GetPlayerAttachedObjectOffset	( playerid, attach_index, o[0], o[1], o[2] );
