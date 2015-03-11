@@ -110,8 +110,12 @@ mparse_LoadMap(map[])
 				alignment
 			;
 
-			if(sscanf(buffer[start_index], "p<(>{s[22]}p<,>s[31]s[50]iis[50]iixxp<)>i", prefix, text, materialindex, materialsize, fontface, fontsize, bold, fontcolor, backcolor, alignment))
+			if(
+				sscanf(buffer[start_index], "p<(>{s[22]}p<,>s[31]s[50]iis[50]iixxp<)>i", prefix, text, materialindex, materialsize, fontface, fontsize, bold, fontcolor, backcolor, alignment) &&
+				sscanf(buffer[start_index], "p<(>{s[22]}p<,>s[31]s[50]iis[50]iiiip<)>i", prefix, text, materialindex, materialsize, fontface, fontsize, bold, fontcolor, backcolor, alignment)
+			){
 				continue;
+			}
 
 			new objectid = mparse_GetPrefixData(MPARSE_PREFIX_OBJECT, prefix);
 			if(objectid == INVALID_OBJECT_ID)
@@ -144,8 +148,12 @@ mparse_LoadMap(map[])
 				color
 			;
 
-			if(sscanf(buffer[start_index], "p<(>{s[18]}p<,>s[31]iis[50]s[50]p<)>x", prefix, materialindex, modelid, txd, texture, color))
+			if(
+				sscanf(buffer[start_index], "p<(>{s[18]}p<,>s[31]iis[50]s[50]p<)>x", prefix, materialindex, modelid, txd, texture, color) &&
+				sscanf(buffer[start_index], "p<(>{s[18]}p<,>s[31]iis[50]s[50]p<)>i", prefix, materialindex, modelid, txd, texture, color)
+			){
 				continue;
+			}
 
 			new objectid = mparse_GetPrefixData(MPARSE_PREFIX_OBJECT, prefix);
 			if(objectid == INVALID_OBJECT_ID)
@@ -355,8 +363,12 @@ mparse_LoadMap(map[])
 				color2
 			;
 
-			if(sscanf(buffer[start_index], "p<(>{s[24]}p<,>{s[9]}iiifffffffffxp<)>x", index, modelid, bone, x, y, z, rx, ry, rz, sx, sy, sz, color1, color2))
+			if(
+				sscanf(buffer[start_index], "p<(>{s[24]}p<,>{s[9]}iiifffffffffxp<)>x", index, modelid, bone, x, y, z, rx, ry, rz, sx, sy, sz, color1, color2) &&
+				sscanf(buffer[start_index], "p<(>{s[24]}p<,>{s[9]}iiifffffffffip<)>i", index, modelid, bone, x, y, z, rx, ry, rz, sx, sy, sz, color1, color2)
+			){
 				continue;
+			}
 
 			for(new playerid, max_playerid = GetMaxPlayers(); playerid < max_playerid; playerid ++)
 			{
