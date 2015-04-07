@@ -4,4 +4,4 @@
 #define	RGBA_YELLOW	0xFFFF00FF
 
 #define	RGBAtoARGB(%0) \
-	(%0 >>> 8 | %0 << 24)
+	(%0 >> 8 | %0 << 24)
